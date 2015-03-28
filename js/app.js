@@ -1,8 +1,16 @@
 /* jshint node: true */
 /* global document */
 
-var React     = require('react'),
-    DataPanel = require('./components/DataPanel');
+var React      = require('react'),
+    DataPanel  = require('./components/DataPanel'),
+    ApiActions = require('./actions/ApiActions.js'),
+    AppStore   = require('./stores/AppStore');
+
+var from = AppStore.getFrom();
+var to = AppStore.getTo();
+
+ApiActions.getData('inHumidity', from, to);
+ApiActions.getData('inTemp', from, to);
 
 React.render(
     <div>
@@ -11,4 +19,3 @@ React.render(
     </div>,
     document.getElementById('mount-point')
 );
-
