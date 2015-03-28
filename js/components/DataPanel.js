@@ -39,7 +39,7 @@ var DataPanel = React.createClass({
     render: function() {
         return(
             <div>
-                <DataPlot {...this.props} data={JSON.stringify(this.state.data)}></DataPlot>
+                <DataPlot {...this.props} data={this.state.data}></DataPlot>
                 <button onClick={this._clickHandler}>Update</button>
             </div>
         );

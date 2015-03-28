@@ -3,15 +3,17 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher'),
     AppConstants  = require('../constants/AppConstants'),
     EventEmitter  = require('events').EventEmitter,
-    merge         = require('object-assign');
+    merge         = require('object-assign'),
+    Immutable     = require('immutable');
+
+var DataRecord = Immutable.Record({
+    timePoints: [0],
+    dataPoints: [0]
+});
 
 var _from = new Date(),
     _to   = new Date(),
-    _emptyData = {
-        timePoints: [0],
-        dataPoints: [0]
-    },
-    _data = {};
+    _data = Immutable.Map();
 
 _to.setMilliseconds(0);
 _from.setTime(_to.getTime() - 24*3600*1000);
@@ -25,7 +27,10 @@ function setTo(to) {
 }
 
 function setData(datum, data) {
-    _data[datum] = data;
+    _data = _data.set(datum, new DataRecord({
+        timePoints: data.timePoints,
+        dataPoints: data.dataPoints
+    }));
 }
 
 var AppStore = merge({}, EventEmitter.prototype, {
@@ -50,10 +55,10 @@ var AppStore = merge({}, EventEmitter.prototype, {
     },
 
     getData: function(datum) {
-        if(_data.hasOwnProperty(datum)) {
-            return _data[datum];
+        if(_data.has(datum)) {
+            return _data.get(datum);
         } else {
-            return _emptyData;
+            return new DataRecord();
         }
     }
 });

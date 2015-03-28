@@ -34,7 +34,7 @@ var DataPlot = React.createClass({
 
     _updateGraph: function() {
         var newData = [],
-            data = JSON.parse(this.props.data);
+            data = this.props.data;
 
         for(var i=0, len=data.timePoints.length; i<len; ++i) {
             newData.push([new Date(data.timePoints[i]), data.dataPoints[i]]);
