@@ -1,23 +1,13 @@
 /* jshint node: true */
 
-var React    = require('react'),
-    AppStore = require('../stores/AppStore'),
-    DataPlot = require('./DataPlot.js');
-
-function getAppState() {
-    return {
-        from: '2015-03-20',
-        to: '2015-03-21',
-        data: {
-            timePoints: ["2015-03-20T00:03:01.000Z","2015-03-20T00:08:01.000Z","2015-03-20T00:13:01.000Z","2015-03-20T00:18:01.000Z"],
-            dataPoints: [50,50,50,50]
-        }
-    };
-}
+var React      = require('react'),
+    AppStore   = require('../stores/AppStore'),
+    ApiActions = require('../actions/ApiActions.js'),
+    DataPlot   = require('./DataPlot.js');
 
 var DataPanel = React.createClass({
     getInitialState: function() {
-        return getAppState();
+        return this._getAppState();
     },
 
     componentDidMount: function() {
@@ -30,13 +20,29 @@ var DataPanel = React.createClass({
         AppStore.removeChangeListener(this._onChange);
     },
 
+    _getAppState: function() {
+        return {
+            from: AppStore.getFrom(),
+            to: AppStore.getTo(),
+            data: AppStore.getData(this.props.datum)
+        };
+    },
+
     _onChange: function() {
-        this.setState(getAppState());
+        this.setState(this._getAppState());
+    },
+
+    _clickHandler: function() {
+        console.log('clicked');
+        ApiActions.getData(this.props.datum);
     },
 
     render: function() {
         return(
-            <DataPlot {...this.props} data={JSON.stringify(this.state.data)}></DataPlot>
+            <div>
+                <DataPlot {...this.props} data={JSON.stringify(this.state.data)}></DataPlot>
+                <button onClick={this._clickHandler}>Update</button>
+            </div>
         );
     }
 });

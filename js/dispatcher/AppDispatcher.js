@@ -10,5 +10,12 @@ AppDispatcher.handleViewAction = function(action) {
     });
 };
 
+AppDispatcher.handleApiAction = function(action) {
+    this.dispatch({
+        source: 'API_ACTION',
+        action: action
+    });
+};
+
 module.exports = AppDispatcher;
 

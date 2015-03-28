@@ -20,6 +20,19 @@ var DataPlot = React.createClass({
         );
     },
 
+    shouldComponentUpdate: function(nextProps, nextState) {
+        if(nextProps.datum===this.props.datum) {
+            return true;
+        }
+
+        return false;
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+        console.log('updating graph');
+        this._updateGraph();
+    },
+
     _updateGraph: function() {
         var newData = [],
             data = JSON.parse(this.props.data);
