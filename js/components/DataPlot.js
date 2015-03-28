@@ -3,6 +3,10 @@
 
 var React   = require('react');
 
+var style = {
+    width: '100%'
+};
+
 var DataPlot = React.createClass({
     componentDidMount: function() {
         var graphEl = this.refs.chart.getDOMNode();
@@ -16,7 +20,7 @@ var DataPlot = React.createClass({
 
     render: function() {
         return(
-            <div ref="chart"></div>
+            <div ref="chart" style={style}></div>
         );
     },
 

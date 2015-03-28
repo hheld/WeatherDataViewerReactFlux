@@ -11,7 +11,12 @@ var to = AppStore.getTo();
 
 var dataNames = [
     'inHumidity',
-    'inTemp'
+    'inTemp',
+    'outTemp',
+    'outHumidity',
+    'rain',
+    'barometer',
+    'windSpeed'
 ];
 
 var panels = dataNames.map(function(datum, i) {
