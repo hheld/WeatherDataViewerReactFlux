@@ -9,13 +9,21 @@ var React      = require('react'),
 var from = AppStore.getFrom();
 var to = AppStore.getTo();
 
-ApiActions.getData('inHumidity', from, to);
-ApiActions.getData('inTemp', from, to);
+var dataNames = [
+    'inHumidity',
+    'inTemp'
+];
+
+var panels = dataNames.map(function(datum, i) {
+    // initialize with data
+    ApiActions.getData(datum, from, to);
+
+    return (
+        <DataPanel datum={datum} key={i}></DataPanel>
+    );
+});
 
 React.render(
-    <div>
-        <DataPanel datum="inHumidity"></DataPanel>
-        <DataPanel datum="inTemp"></DataPanel>
-    </div>,
+    <div>{panels}</div>,
     document.getElementById('mount-point')
 );
