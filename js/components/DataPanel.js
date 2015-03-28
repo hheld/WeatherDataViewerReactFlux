@@ -33,8 +33,7 @@ var DataPanel = React.createClass({
     },
 
     _clickHandler: function() {
-        console.log('clicked');
-        ApiActions.getData(this.props.datum);
+        ApiActions.getData(this.props.datum, this.state.from, this.state.to);
     },
 
     render: function() {

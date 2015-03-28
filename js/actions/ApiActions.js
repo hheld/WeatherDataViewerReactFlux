@@ -5,8 +5,8 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     WeatherData   = require('../utils/WeatherApiHelper');
 
 var AppActions = {
-    getData: function(datum) {
-        WeatherData.get(datum).then(function(data) {
+    getData: function(datum, from, to) {
+        WeatherData.get(datum, from, to).then(function(data) {
             AppDispatcher.handleApiAction({
                 actionType: AppConstants.API_CALL,
                 data: data,

@@ -21,7 +21,7 @@ var DataPlot = React.createClass({
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
-        if(nextProps.datum===this.props.datum) {
+        if(nextProps.data!==this.props.data) {
             return true;
         }
 
@@ -29,7 +29,6 @@ var DataPlot = React.createClass({
     },
 
     componentDidUpdate: function(prevProps, prevState) {
-        console.log('updating graph');
         this._updateGraph();
     },
 

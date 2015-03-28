@@ -5,7 +5,10 @@ var React     = require('react'),
     DataPanel = require('./components/DataPanel');
 
 React.render(
-    <DataPanel datum="inHumidity"></DataPanel>,
+    <div>
+        <DataPanel datum="inHumidity"></DataPanel>
+        <DataPanel datum="inTemp"></DataPanel>
+    </div>,
     document.getElementById('mount-point')
 );
 

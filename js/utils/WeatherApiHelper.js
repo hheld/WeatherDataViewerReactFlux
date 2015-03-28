@@ -2,9 +2,9 @@
 
 var http = require('http');
 
-function getWeatherData(datum) {
+function getWeatherData(datum, from, to) {
     return new Promise(function(resolve, reject) {
-        http.get('/wd/api/' + datum, function(res) {
+        http.get('/wd/api/' + datum + '?from=' + from + '&to=' + to, function(res) {
             var data = '';
 
             res.on('data', function(chunk) {
