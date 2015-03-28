@@ -1,14 +1,21 @@
 /* jshint node: true */
 
 var React    = require('react'),
-    AppStore = require('../stores/AppStore');
+    AppStore = require('../stores/AppStore'),
+    DataPlot = require('./DataPlot.js');
 
 function getAppState() {
     return {
+        from: '2015-03-20',
+        to: '2015-03-21',
+        data: {
+            timePoints: ["2015-03-20T00:03:01.000Z","2015-03-20T00:08:01.000Z","2015-03-20T00:13:01.000Z","2015-03-20T00:18:01.000Z"],
+            dataPoints: [50,50,50,50]
+        }
     };
 }
 
-var AppControllerView = React.createClass({
+var DataPanel = React.createClass({
     getInitialState: function() {
         return getAppState();
     },
@@ -29,9 +36,9 @@ var AppControllerView = React.createClass({
 
     render: function() {
         return(
-            <p>This is the AppControllerView.</p>
+            <DataPlot {...this.props} data={JSON.stringify(this.state.data)}></DataPlot>
         );
     }
 });
 
-module.exports = AppControllerView;
+module.exports = DataPanel;

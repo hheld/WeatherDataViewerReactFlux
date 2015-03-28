@@ -1,11 +1,11 @@
 /* jshint node: true */
 /* global document */
 
-var React             = require('react'),
-    AppControllerView = require('./components/AppControllerView');
+var React     = require('react'),
+    DataPanel = require('./components/DataPanel');
 
 React.render(
-    <AppControllerView></AppControllerView>,
+    <DataPanel datum="inHumidity"></DataPanel>,
     document.getElementById('mount-point')
 );
 

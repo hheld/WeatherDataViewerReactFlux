@@ -11,6 +11,7 @@ app.use(morgan('short'));
 
 app.use(compression());
 app.use('/wd', express.static(__dirname + '/dist'));
+app.use('/wd', express.static(__dirname + '/node_modules'));
 app.use('/wd/api', routes);
 
 app.listen(port);
