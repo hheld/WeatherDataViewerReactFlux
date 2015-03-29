@@ -8,10 +8,20 @@ var React              = require('react'),
     DateRangeSelectors = require('./DateRangeSelectors'),
     AppActions         = require('../actions/AppActions');
 
+var panelContainerStyle = {
+    border: '1px solid #849fc3',
+    margin: 10,
+    padding: 5
+};
+
 var plotContainerStyle = {
     width: '80%',
     margin: 10,
     float: 'right'
+};
+
+var controlContainerStyle = {
+    width: '20%'
 };
 
 var DataPanel = React.createClass({
@@ -55,12 +65,15 @@ var DataPanel = React.createClass({
 
     render: function() {
         return(
-            <div>
+            <div style={panelContainerStyle}>
                 <div style={plotContainerStyle}>
                     <DataPlot {...this.props} data={this.state.data}></DataPlot>
                 </div>
-                <Button clickHandler={this._onUpdateButtonClicked}>Update</Button>
-                <DateRangeSelectors from={this.state.from} to={this.state.to} fromChangeHandler={this._onFromDateChanged} toChangeHandler={this._onToDateChanged}></DateRangeSelectors>
+                <div style={controlContainerStyle}>
+                    <DateRangeSelectors from={this.state.from} to={this.state.to} fromChangeHandler={this._onFromDateChanged} toChangeHandler={this._onToDateChanged}></DateRangeSelectors>
+                    <Button clickHandler={this._onUpdateButtonClicked} style={{marginTop: 5}}>Update</Button>
+                </div>
+                <div style={{clear: 'both'}}></div>
             </div>
         );
     }

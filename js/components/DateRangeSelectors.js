@@ -1,6 +1,22 @@
 /* jshint node: true */
 
-var React      = require('react');
+var React = require('react');
+
+var formGroupStyle = {
+    display: '-webkit-flex',
+    flexFlow: 'row wrap',
+    alignItems: 'center',
+    justifyContent: 'center'
+};
+
+var labelStyle = {
+    WebkitFlex: '1'
+};
+
+var dateInputStyle = {
+    WebkitFlex: '1 auto',
+    fontFamily: 'arial'
+};
 
 var DateRangeSelectors = React.createClass({
     statics: {
@@ -23,8 +39,14 @@ var DateRangeSelectors = React.createClass({
     render: function() {
         return(
             <form>
-                <input ref="fromInput" type="datetime-local" onChange={this._onFromChanged} defaultValue={DateRangeSelectors.getTime(this.props.from)} />
-                <input ref="toInput" type="datetime-local" onChange={this._onToChanged} defaultValue={DateRangeSelectors.getTime(this.props.to)} />
+                <div style={formGroupStyle}>
+                    <label style={labelStyle}>From</label>
+                    <input style={dateInputStyle} type="datetime-local" onChange={this._onFromChanged} defaultValue={DateRangeSelectors.getTime(this.props.from)} />
+                </div>
+                <div style={formGroupStyle}>
+                    <label style={labelStyle}>To</label>
+                    <input style={dateInputStyle} type="datetime-local" onChange={this._onToChanged} defaultValue={DateRangeSelectors.getTime(this.props.to)} />
+                </div>
             </form>
         );
     }
