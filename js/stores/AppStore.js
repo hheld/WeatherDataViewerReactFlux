@@ -34,7 +34,7 @@ function toggleAutoUpdate(datum) {
     if(!_autoUpdate.hasOwnProperty(datum)) {
         _autoUpdate[datum] = !_initialAutoUpdate;
     } else {
-        _autoUpdate[datum] = !_initialAutoUpdate;
+        _autoUpdate[datum] = !_autoUpdate[datum];
     }
 }
 
