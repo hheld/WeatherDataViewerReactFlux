@@ -43,7 +43,8 @@ var DataPanel = React.createClass({
         return {
             from: AppStore.getFrom(this.props.datum),
             to: AppStore.getTo(this.props.datum),
-            data: AppStore.getData(this.props.datum)
+            data: AppStore.getData(this.props.datum),
+            doAutoUpdate: AppStore.getAutoUpdateSetting(this.props.datum)
         };
     },
 
@@ -63,6 +64,10 @@ var DataPanel = React.createClass({
         AppActions.setToDate(this.props.datum, toDate);
     },
 
+    _onautoUpdateToggled: function() {
+        AppActions.toggleAutoUpdate(this.props.datum);
+    },
+
     render: function() {
         return(
             <div style={panelContainerStyle}>
@@ -70,7 +75,13 @@ var DataPanel = React.createClass({
                     <DataPlot {...this.props} data={this.state.data}></DataPlot>
                 </div>
                 <div style={controlContainerStyle}>
-                    <DateRangeSelectors from={this.state.from} to={this.state.to} fromChangeHandler={this._onFromDateChanged} toChangeHandler={this._onToDateChanged}></DateRangeSelectors>
+                    <DateRangeSelectors from={this.state.from}
+                                        to={this.state.to}
+                                        doAutoUpdate={this.state.doAutoUpdate}
+                                        autoUpdateChangeHandler={this._onautoUpdateToggled}
+                                        fromChangeHandler={this._onFromDateChanged}
+                                        toChangeHandler={this._onToDateChanged}>
+                    </DateRangeSelectors>
                     <Button clickHandler={this._onUpdateButtonClicked} style={{marginTop: 5}}>Update</Button>
                 </div>
                 <div style={{clear: 'both'}}></div>

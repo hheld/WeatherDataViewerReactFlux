@@ -13,9 +13,11 @@ var DataRecord = Immutable.Record({
 
 var _initialFrom = new Date(),
     _initialTo   = new Date(),
+    _initialAutoUpdate = true,
     _data = Immutable.Map(),
     _from = {},
-    _to = {};
+    _to = {},
+    _autoUpdate = {};
 
 _initialTo.setMilliseconds(0);
 _initialFrom.setTime(_initialTo.getTime() - 24*3600*1000);
@@ -26,6 +28,14 @@ function setFrom(datum, from) {
 
 function setTo(datum, to) {
     _to[datum] = new Date(to);
+}
+
+function toggleAutoUpdate(datum) {
+    if(!_autoUpdate.hasOwnProperty(datum)) {
+        _autoUpdate[datum] = !_initialAutoUpdate;
+    } else {
+        _autoUpdate[datum] = !_initialAutoUpdate;
+    }
 }
 
 function setData(datum, data) {
@@ -64,6 +74,14 @@ var AppStore = merge({}, EventEmitter.prototype, {
         return _initialTo;
     },
 
+    getAutoUpdateSetting: function(datum) {
+        if(_autoUpdate.hasOwnProperty(datum)) {
+            return _autoUpdate[datum];
+        }
+
+        return _initialAutoUpdate;
+    },
+
     getData: function(datum) {
         if(_data.has(datum)) {
             return _data.get(datum);
@@ -85,6 +103,9 @@ AppStore.dispatcherToken = AppDispatcher.register(function(payload) {
             break;
         case AppConstants.SET_TO_DATE:
             setTo(action.datum, action.data);
+            break;
+        case AppConstants.TOGGLE_AUTO_UPDATE:
+            toggleAutoUpdate(action.datum);
             break;
         default:
             return true;

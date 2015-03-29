@@ -36,6 +36,10 @@ var DateRangeSelectors = React.createClass({
         this.props.toChangeHandler(event.target.value);
     },
 
+    _onAutoUpdateChanged: function() {
+        this.props.autoUpdateChangeHandler();
+    },
+
     render: function() {
         return(
             <form>
@@ -46,6 +50,11 @@ var DateRangeSelectors = React.createClass({
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>To</label>
                     <input style={dateInputStyle} type="datetime-local" onChange={this._onToChanged} defaultValue={DateRangeSelectors.getTime(this.props.to)} />
+                </div>
+                <div>
+                    <label>
+                        <input type="checkbox" defaultChecked={this.props.doAutoUpdate} onChange={this._onAutoUpdateChanged} /> Auto update every 5 minutes
+                    </label>
                 </div>
             </form>
         );

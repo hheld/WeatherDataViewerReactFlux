@@ -18,6 +18,13 @@ var AppActions = {
             data: toDate,
             datum: datum
         });
+    },
+
+    toggleAutoUpdate: function(datum) {
+        AppDispatcher.handleViewAction({
+            actionType: AppConstants.TOGGLE_AUTO_UPDATE,
+            datum: datum
+        });
     }
 };
 
