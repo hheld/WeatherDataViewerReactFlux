@@ -45,11 +45,19 @@ var DateRangeSelectors = React.createClass({
             <form>
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>From</label>
-                    <input style={dateInputStyle} type="datetime-local" onChange={this._onFromChanged} defaultValue={DateRangeSelectors.getTime(this.props.from)} />
+                    <input style={dateInputStyle}
+                           type="datetime-local"
+                           onChange={this._onFromChanged}
+                           defaultValue={DateRangeSelectors.getTime(this.props.from)}
+                           value={DateRangeSelectors.getTime(this.props.from)} />
                 </div>
                 <div style={formGroupStyle}>
                     <label style={labelStyle}>To</label>
-                    <input style={dateInputStyle} type="datetime-local" onChange={this._onToChanged} defaultValue={DateRangeSelectors.getTime(this.props.to)} />
+                    <input style={dateInputStyle}
+                           type="datetime-local"
+                           onChange={this._onToChanged}
+                           defaultValue={DateRangeSelectors.getTime(this.props.to)}
+                           value={DateRangeSelectors.getTime(this.props.to)} />
                 </div>
                 <div>
                     <label>

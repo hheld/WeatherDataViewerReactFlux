@@ -25,6 +25,8 @@ var controlContainerStyle = {
 };
 
 var DataPanel = React.createClass({
+    _autoUpdate: undefined,
+
     getInitialState: function() {
         return this._getAppState();
     },
@@ -40,12 +42,20 @@ var DataPanel = React.createClass({
     },
 
     _getAppState: function() {
-        return {
+        var appState = {
             from: AppStore.getFrom(this.props.datum),
             to: AppStore.getTo(this.props.datum),
             data: AppStore.getData(this.props.datum),
             doAutoUpdate: AppStore.getAutoUpdateSetting(this.props.datum)
         };
+
+        if(appState.doAutoUpdate) {
+            this._startAutoUpdate();
+        } else {
+            this._stopAutoUpdate();
+        }
+
+        return appState;
     },
 
     _onChange: function() {
@@ -66,6 +76,25 @@ var DataPanel = React.createClass({
 
     _onautoUpdateToggled: function() {
         AppActions.toggleAutoUpdate(this.props.datum);
+    },
+
+    _startAutoUpdate: function() {
+        if(typeof this._autoUpdate!=='undefined') return;
+
+        this._autoUpdate = setInterval(function() {
+            var currentTime = new Date();
+            currentTime.setMilliseconds(0);
+
+            AppActions.setToDate(this.props.datum, currentTime);
+            ApiActions.getData(this.props.datum, this.state.from, currentTime);
+        }.bind(this), 5 * 60 * 1000);
+    },
+
+    _stopAutoUpdate: function() {
+        if(typeof this._autoUpdate!=='undefined'){
+            clearInterval(this._autoUpdate);
+            this._autoUpdate = undefined;
+        }
     },
 
     render: function() {
