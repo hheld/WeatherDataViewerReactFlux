@@ -71,7 +71,7 @@ var DataPanel = React.createClass({
         this.setState(this._getAppState());
     },
 
-    _clickHandler: function() {
+    _onUpdateButtonClicked: function() {
         ApiActions.getData(this.props.datum, this.state.from, this.state.to);
     },
 
@@ -81,7 +81,7 @@ var DataPanel = React.createClass({
                 <div style={plotContainerStyle}>
                     <DataPlot {...this.props} data={this.state.data}></DataPlot>
                 </div>
-                <button {...this.getBrowserStateEvents()} style={this.buildStyles(updateButtonStyle)} onClick={this._clickHandler}>Update</button>
+                <button {...this.getBrowserStateEvents()} style={this.buildStyles(updateButtonStyle)} onClick={this._onUpdateButtonClicked}>Update</button>
             </div>
         );
     }
