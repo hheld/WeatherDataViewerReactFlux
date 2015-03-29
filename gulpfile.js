@@ -58,7 +58,7 @@ gulp.task('build', function() {
 gulp.task('replaceHtml', function() {
     gulp.src(path.HTML)
         .pipe(htmlReplace({
-            'js': '/wd/build/' + path.MINIFIED_OUT
+            'js': '/wdrf/build/' + path.MINIFIED_OUT
     }))
     .pipe(gulp.dest(path.DEST));
 });
