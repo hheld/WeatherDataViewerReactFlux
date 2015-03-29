@@ -4,7 +4,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     AppConstants  = require('../constants/AppConstants'),
     WeatherData   = require('../utils/WeatherApiHelper');
 
-var AppActions = {
+var ApiActions = {
     getData: function(datum, from, to) {
         WeatherData.get(datum, from, to).then(function(data) {
             AppDispatcher.handleApiAction({
@@ -18,4 +18,4 @@ var AppActions = {
     }
 };
 
-module.exports = AppActions;
+module.exports = ApiActions;

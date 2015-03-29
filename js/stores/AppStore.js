@@ -21,11 +21,11 @@ _initialTo.setMilliseconds(0);
 _initialFrom.setTime(_initialTo.getTime() - 24*3600*1000);
 
 function setFrom(datum, from) {
-    _from[datum] = from;
+    _from[datum] = new Date(from);
 }
 
 function setTo(datum, to) {
-    _to[datum] = to;
+    _to[datum] = new Date(to);
 }
 
 function setData(datum, data) {
@@ -79,6 +79,12 @@ AppStore.dispatcherToken = AppDispatcher.register(function(payload) {
     switch(action.actionType) {
         case AppConstants.API_CALL:
             setData(action.datum, action.data);
+            break;
+        case AppConstants.SET_FROM_DATE:
+            setFrom(action.datum, action.data);
+            break;
+        case AppConstants.SET_TO_DATE:
+            setTo(action.datum, action.data);
             break;
         default:
             return true;
