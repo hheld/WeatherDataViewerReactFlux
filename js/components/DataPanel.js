@@ -61,8 +61,8 @@ var DataPanel = React.createClass({
 
     _getAppState: function() {
         return {
-            from: AppStore.getFrom(),
-            to: AppStore.getTo(),
+            from: AppStore.getFrom(this.props.datum),
+            to: AppStore.getTo(this.props.datum),
             data: AppStore.getData(this.props.datum)
         };
     },

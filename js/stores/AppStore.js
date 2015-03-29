@@ -11,19 +11,21 @@ var DataRecord = Immutable.Record({
     dataPoints: [0]
 });
 
-var _from = new Date(),
-    _to   = new Date(),
-    _data = Immutable.Map();
+var _initialFrom = new Date(),
+    _initialTo   = new Date(),
+    _data = Immutable.Map(),
+    _from = {},
+    _to = {};
 
-_to.setMilliseconds(0);
-_from.setTime(_to.getTime() - 24*3600*1000);
+_initialTo.setMilliseconds(0);
+_initialFrom.setTime(_initialTo.getTime() - 24*3600*1000);
 
-function setFrom(from) {
-    _from = from;
+function setFrom(datum, from) {
+    _from[datum] = from;
 }
 
-function setTo(to) {
-    _to = to;
+function setTo(datum, to) {
+    _to[datum] = to;
 }
 
 function setData(datum, data) {
@@ -46,12 +48,20 @@ var AppStore = merge({}, EventEmitter.prototype, {
         this.removeListener('change', callback);
     },
 
-    getFrom: function() {
-        return _from;
+    getFrom: function(datum) {
+        if(_from.hasOwnProperty(datum)) {
+            return _from[datum];
+        }
+
+        return _initialFrom;
     },
 
-    getTo: function() {
-        return _to;
+    getTo: function(datum) {
+        if(_to.hasOwnProperty(datum)) {
+            return _to[datum];
+        }
+
+        return _initialTo;
     },
 
     getData: function(datum) {
