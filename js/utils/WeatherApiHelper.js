@@ -1,21 +1,20 @@
 /* jshint node: true */
 
-var http = require('http');
+var Ajax = require('simple-ajax');
 
 function getWeatherData(datum, from, to) {
     return new Promise(function(resolve, reject) {
-        http.get('/wd/api/' + datum + '?from=' + from + '&to=' + to, function(res) {
-            var data = '';
+        var ajax = new Ajax('/wd/api/' + datum + '?from=' + from + '&to=' + to);
 
-            res.on('data', function(chunk) {
-                data += chunk;
-            }).on('end', function() {
-                data = JSON.parse(data);
-                resolve(data);
-            });
-        }).on('error', function(e) {
-            reject(e.message);
+        ajax.on('success', function(event) {
+            resolve(JSON.parse(event.target.responseText));
         });
+
+        ajax.on('error', function(event) {
+            reject(event.target.responseText);
+        });
+
+        ajax.send();
     });
 }
 

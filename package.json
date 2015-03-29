@@ -36,6 +36,7 @@
     "object-assign": "^2.0.0",
     "radium": "^0.10.1",
     "react": "^0.13.1",
+    "simple-ajax": "^2.0.0",
     "sqlite3": "^3.0.5"
   }
 }
