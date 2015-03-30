@@ -5,12 +5,13 @@ var AppDispatcher = require('../dispatcher/AppDispatcher'),
     WeatherData   = require('../utils/WeatherApiHelper');
 
 var ApiActions = {
-    getData: function(datum, from, to) {
+    getData: function(datum, from, to, conversionFunc) {
         WeatherData.get(datum, from, to).then(function(data) {
             AppDispatcher.handleApiAction({
                 actionType: AppConstants.API_CALL,
                 data: data,
-                datum: datum
+                datum: datum,
+                conversionFunc: conversionFunc
             });
         }, function(error) {
             console.log('There was an error getting weather data: ' + error);

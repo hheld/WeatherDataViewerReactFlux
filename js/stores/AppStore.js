@@ -38,10 +38,18 @@ function toggleAutoUpdate(datum) {
     }
 }
 
-function setData(datum, data) {
+function setData(datum, data, conversionFunc) {
+    var convertedDataPoints = data.dataPoints;
+
+    if(conversionFunc) {
+        for(var i=0, len=convertedDataPoints.length; i<len; ++i) {
+            convertedDataPoints[i] = conversionFunc(convertedDataPoints[i]);
+        }
+    }
+
     _data = _data.set(datum, new DataRecord({
         timePoints: data.timePoints,
-        dataPoints: data.dataPoints
+        dataPoints: convertedDataPoints
     }));
 }
 
@@ -96,7 +104,7 @@ AppStore.dispatcherToken = AppDispatcher.register(function(payload) {
 
     switch(action.actionType) {
         case AppConstants.API_CALL:
-            setData(action.datum, action.data);
+            setData(action.datum, action.data, action.conversionFunc);
             break;
         case AppConstants.SET_FROM_DATE:
             setFrom(action.datum, action.data);

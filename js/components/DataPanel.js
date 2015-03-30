@@ -77,7 +77,7 @@ var DataPanel = React.createClass({
     },
 
     _onUpdateButtonClicked: function() {
-        ApiActions.getData(this.props.datum, this.state.from, this.state.to);
+        ApiActions.getData(this.props.datum, this.state.from, this.state.to, this.props.conversionFunc);
     },
 
     _onFromDateChanged: function(fromDate) {
@@ -100,7 +100,7 @@ var DataPanel = React.createClass({
             currentTime.setMilliseconds(0);
 
             AppActions.setToDate(this.props.datum, currentTime);
-            ApiActions.getData(this.props.datum, this.state.from, currentTime);
+            ApiActions.getData(this.props.datum, this.state.from, currentTime, this.props.conversionFunc);
         }.bind(this), 5 * 60 * 1000);
     },
 
