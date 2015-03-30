@@ -11,9 +11,13 @@ var React              = require('react'),
     StatsTable = require('./StatsTable');
 
 var panelContainerStyle = {
-    border: '1px solid #849fc3',
-    margin: 10,
-    padding: 5
+    border: '5px solid #849fc3',
+    marginLeft: '20%',
+    marginRight: '20%',
+    marginTop: 15,
+    marginBottom: 15,
+    padding: 10,
+    backgroundColor: 'white'
 };
 
 var plotContainerStyle = {
@@ -22,7 +26,8 @@ var plotContainerStyle = {
 };
 
 var controlContainerStyle = {
-    width: '20%'
+    width: '20%',
+    minWidth: 190
 };
 
 var tableContainerStyle = {

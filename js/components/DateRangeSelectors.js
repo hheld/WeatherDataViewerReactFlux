@@ -6,16 +6,31 @@ var formGroupStyle = {
     display: '-webkit-flex',
     flexFlow: 'row wrap',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 5
 };
 
 var labelStyle = {
-    WebkitFlex: '1'
+    WebkitFlex: '1',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold',
+    fontSize: '0.8em'
 };
 
 var dateInputStyle = {
     WebkitFlex: '1 auto',
-    fontFamily: 'arial'
+    fontFamily: 'sans-serif',
+    padding: 2,
+    color: '#5c5e60',
+    border: 'none'
+};
+
+var autoUpdateCheckboxStyle = {
+};
+
+var autoUpdateLabelStyle = {
+    fontFamily: 'sans-serif',
+    fontSize: '0.8em'
 };
 
 var DateRangeSelectors = React.createClass({
@@ -60,8 +75,11 @@ var DateRangeSelectors = React.createClass({
                            value={DateRangeSelectors.getTime(this.props.to)} />
                 </div>
                 <div>
-                    <label>
-                        <input type="checkbox" defaultChecked={this.props.doAutoUpdate} onChange={this._onAutoUpdateChanged} /> Auto update every 5 minutes
+                    <label style={autoUpdateLabelStyle}>
+                        <input type="checkbox"
+                               defaultChecked={this.props.doAutoUpdate}
+                               onChange={this._onAutoUpdateChanged}
+                               style={autoUpdateCheckboxStyle} /> Auto update every 5 minutes
                     </label>
                 </div>
             </form>

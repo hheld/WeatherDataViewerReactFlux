@@ -3,7 +3,7 @@
 var React      = require('react');
 
 var tableStyle = {
-    fontFamily: 'arial, helvetica, sans-serif',
+    fontFamily: 'sans-serif',
     width: '100%',
     borderCollapse: 'collapse'
 };

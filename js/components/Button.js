@@ -12,17 +12,14 @@ var buttonStyle = {
     display: 'inline-block',
     cursor: 'pointer',
     color: '#ffffff',
-    fontFamily: 'arial',
-    fontSize: 15,
+    fontFamily: 'sans-serif',
+    fontSize: '0.8em',
     padding: '5px 15px',
     textDecoration: 'none',
-    textShadow: '0px 1px 0px #263666',
-    background: 'linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%)',
     backgroundColor: '#2dabf9',
 
     states: [{
         hover: {
-            background:'linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%)',
             backgroundColor: '#0688fa'
         },
         active: {
