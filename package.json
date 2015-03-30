@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "compression": "^1.4.3",
+    "d3": "^3.5.5",
     "dygraphs": "^1.1.0",
     "express": "^4.12.3",
     "flux": "^2.0.1",

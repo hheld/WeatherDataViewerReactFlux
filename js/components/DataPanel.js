@@ -5,6 +5,7 @@ var React              = require('react'),
     StatsStore         = require('../stores/StatsStore'),
     ApiActions         = require('../actions/ApiActions.js'),
     DataPlot           = require('./DataPlot'),
+    WindRose           = require('./WindRose'),
     Button             = require('./Button'),
     DateRangeSelectors = require('./DateRangeSelectors'),
     AppActions         = require('../actions/AppActions'),
@@ -125,10 +126,20 @@ var DataPanel = React.createClass({
             stat = this.state.stats.avg;
         }
 
+        var statWidget = this.props.statName ? <div style={tableContainerStyle}>
+                                                   <StatsTable min={this.state.stats.min}
+                                                   max={this.state.stats.max}
+                                                   stat={stat}
+                                                   statName={this.props.statName}></StatsTable>
+                                               </div> : undefined;
+
+        var actualPlot = this.props.specialWidget==='windRose' ? <WindRose data={this.state.data} title={this.props.displayText}></WindRose>
+                                                               : <DataPlot {...this.props} data={this.state.data}></DataPlot>;
+
         return(
             <div style={panelContainerStyle}>
                 <div style={plotContainerStyle}>
-                    <DataPlot {...this.props} data={this.state.data}></DataPlot>
+                    {actualPlot}
                 </div>
                 <div style={controlContainerStyle}>
                     <DateRangeSelectors from={this.state.from}
@@ -140,12 +151,7 @@ var DataPanel = React.createClass({
                                         style={{width: '100%'}}>
                     </DateRangeSelectors>
                     <Button clickHandler={this._onUpdateButtonClicked} style={updateButtonStyle}>Update</Button>
-                    <div style={tableContainerStyle}>
-                        <StatsTable min={this.state.stats.min}
-                                    max={this.state.stats.max}
-                                    stat={stat}
-                                    statName={this.props.statName}></StatsTable>
-                    </div>
+                {statWidget}
                 </div>
                 <div style={{clear: 'both'}}></div>
             </div>
