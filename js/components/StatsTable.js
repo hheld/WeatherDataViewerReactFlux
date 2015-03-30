@@ -2,6 +2,32 @@
 
 var React      = require('react');
 
+var tableStyle = {
+    fontFamily: 'arial, helvetica, sans-serif',
+    width: '100%',
+    borderCollapse: 'collapse'
+};
+
+var entryStyle = {
+    fontSize: '0.7em',
+    border: '1px solid #327fd8',
+    padding: '3px 7px 2px 7px',
+    backgroundColor: 'rgba(121, 151, 217, 0.38)',
+    color: '#275372'
+};
+
+var headerStyle = {
+    fontSize: '0.8em',
+    textAlign: 'left',
+    paddingTop: 5,
+    paddingBottom: 4,
+    paddingLeft: 7,
+    paddingRight: 7,
+    backgroundColor: '#406fd9',
+    color: '#ffffff',
+    border: '1px solid #327fd8',
+};
+
 var StatsTable = React.createClass({
     render: function() {
         var min = this.props.min.toFixed(2),
@@ -9,16 +35,16 @@ var StatsTable = React.createClass({
             stat = this.props.stat.toFixed(2);
 
         return(
-            <table>
+            <table style={tableStyle}>
                 <tr>
-                    <th>Minimum</th>
-                    <th>Maximum</th>
-                    <th>{this.props.statName}</th>
+                    <th style={headerStyle}>Minimum</th>
+                    <th style={headerStyle}>Maximum</th>
+                    <th style={headerStyle}>{this.props.statName}</th>
                 </tr>
                 <tr>
-                    <td>{min}</td>
-                    <td>{max}</td>
-                    <td>{stat}</td>
+                    <td style={entryStyle}>{min}</td>
+                    <td style={entryStyle}>{max}</td>
+                    <td style={entryStyle}>{stat}</td>
                 </tr>
             </table>
         );
