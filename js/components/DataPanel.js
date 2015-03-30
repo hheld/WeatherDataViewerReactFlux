@@ -2,11 +2,13 @@
 
 var React              = require('react'),
     AppStore           = require('../stores/AppStore'),
+    StatsStore         = require('../stores/StatsStore'),
     ApiActions         = require('../actions/ApiActions.js'),
     DataPlot           = require('./DataPlot'),
     Button             = require('./Button'),
     DateRangeSelectors = require('./DateRangeSelectors'),
-    AppActions         = require('../actions/AppActions');
+    AppActions         = require('../actions/AppActions'),
+    StatsTable = require('./StatsTable');
 
 var panelContainerStyle = {
     border: '1px solid #849fc3',
@@ -34,11 +36,13 @@ var DataPanel = React.createClass({
     componentDidMount: function() {
         // add change listeners for relevant stores
         AppStore.addChangeListener(this._onChange);
+        StatsStore.addChangeListener(this._onChange);
     },
 
     componentWillUnmount: function() {
         // remove change listeners for relevant stores
         AppStore.removeChangeListener(this._onChange);
+        StatsStore.removeChangeListener(this._onChange);
     },
 
     _getAppState: function() {
@@ -46,7 +50,8 @@ var DataPanel = React.createClass({
             from: AppStore.getFrom(this.props.datum),
             to: AppStore.getTo(this.props.datum),
             data: AppStore.getData(this.props.datum),
-            doAutoUpdate: AppStore.getAutoUpdateSetting(this.props.datum)
+            doAutoUpdate: AppStore.getAutoUpdateSetting(this.props.datum),
+            stats: StatsStore.getStats(this.props.datum)
         };
 
         if(appState.doAutoUpdate) {
@@ -98,6 +103,14 @@ var DataPanel = React.createClass({
     },
 
     render: function() {
+        var stat;
+
+        if(this.props.statName==='Sum') {
+            stat = this.state.stats.sum;
+        } else {
+            stat = this.state.stats.avg;
+        }
+
         return(
             <div style={panelContainerStyle}>
                 <div style={plotContainerStyle}>
@@ -112,6 +125,12 @@ var DataPanel = React.createClass({
                                         toChangeHandler={this._onToDateChanged}>
                     </DateRangeSelectors>
                     <Button clickHandler={this._onUpdateButtonClicked} style={{marginTop: 5}}>Update</Button>
+                </div>
+                <div>
+                    <StatsTable min={this.state.stats.min}
+                                max={this.state.stats.max}
+                                stat={stat}
+                                statName={this.props.statName}></StatsTable>
                 </div>
                 <div style={{clear: 'both'}}></div>
             </div>

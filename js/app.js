@@ -10,21 +10,21 @@ var from = AppStore.getFrom();
 var to = AppStore.getTo();
 
 var dataNames = [
-    'inHumidity',
-    'inTemp',
-    'outTemp',
-    'outHumidity',
-    'rain',
-    'barometer',
-    'windSpeed'
+    { datum: 'inHumidity',  stat: 'Avg.' },
+    { datum: 'inTemp',      stat: 'Avg.' },
+    { datum: 'outTemp',     stat: 'Avg.' },
+    { datum: 'outHumidity', stat: 'Avg.' },
+    { datum: 'rain',        stat: 'Sum'  },
+    { datum: 'barometer',   stat: 'Avg.' },
+    { datum: 'windSpeed',   stat: 'Avg.' }
 ];
 
 var panels = dataNames.map(function(datum, i) {
     // initialize with data
-    ApiActions.getData(datum, from, to);
+    ApiActions.getData(datum.datum, from, to);
 
     return (
-        <DataPanel datum={datum} key={i}></DataPanel>
+        <DataPanel datum={datum.datum} statName={datum.stat} key={i}></DataPanel>
     );
 });
 
