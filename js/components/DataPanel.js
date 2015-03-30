@@ -18,12 +18,21 @@ var panelContainerStyle = {
 
 var plotContainerStyle = {
     width: '80%',
-    margin: 10,
     float: 'right'
 };
 
 var controlContainerStyle = {
     width: '20%'
+};
+
+var tableContainerStyle = {
+    width: '100%',
+    marginTop: 20
+};
+
+var updateButtonStyle = {
+    marginTop: 10,
+    width: '100%'
 };
 
 var DataPanel = React.createClass({
@@ -122,15 +131,16 @@ var DataPanel = React.createClass({
                                         doAutoUpdate={this.state.doAutoUpdate}
                                         autoUpdateChangeHandler={this._onautoUpdateToggled}
                                         fromChangeHandler={this._onFromDateChanged}
-                                        toChangeHandler={this._onToDateChanged}>
+                                        toChangeHandler={this._onToDateChanged}
+                                        style={{width: '100%'}}>
                     </DateRangeSelectors>
-                    <Button clickHandler={this._onUpdateButtonClicked} style={{marginTop: 5}}>Update</Button>
-                </div>
-                <div>
-                    <StatsTable min={this.state.stats.min}
-                                max={this.state.stats.max}
-                                stat={stat}
-                                statName={this.props.statName}></StatsTable>
+                    <Button clickHandler={this._onUpdateButtonClicked} style={updateButtonStyle}>Update</Button>
+                    <div style={tableContainerStyle}>
+                        <StatsTable min={this.state.stats.min}
+                                    max={this.state.stats.max}
+                                    stat={stat}
+                                    statName={this.props.statName}></StatsTable>
+                    </div>
                 </div>
                 <div style={{clear: 'both'}}></div>
             </div>
