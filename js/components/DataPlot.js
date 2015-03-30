@@ -46,6 +46,7 @@ var DataPlot = React.createClass({
 
         var plotOptions = {
             title: this.props.datum,
+            ylabel: this.props.unit,
             file: newData,
             showRangeSelector: true,
             color: 'rgb(42, 101, 212)',
