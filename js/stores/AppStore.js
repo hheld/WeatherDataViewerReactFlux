@@ -14,6 +14,7 @@ var DataRecord = Immutable.Record({
 var _initialFrom = new Date(),
     _initialTo   = new Date(),
     _initialAutoUpdate = true,
+    _initialData = new DataRecord(),
     _data = Immutable.Map(),
     _from = {},
     _to = {},
@@ -94,7 +95,7 @@ var AppStore = merge({}, EventEmitter.prototype, {
         if(_data.has(datum)) {
             return _data.get(datum);
         } else {
-            return new DataRecord();
+            return _initialData;
         }
     }
 });
