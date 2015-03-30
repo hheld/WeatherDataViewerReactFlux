@@ -18,7 +18,8 @@ var _initialFrom = new Date(),
     _data = Immutable.Map(),
     _from = {},
     _to = {},
-    _autoUpdate = {};
+    _autoUpdate = {},
+    _pendingDataNames = [];
 
 _initialTo.setMilliseconds(0);
 _initialFrom.setTime(_initialTo.getTime() - 24*3600*1000);
@@ -36,6 +37,20 @@ function toggleAutoUpdate(datum) {
         _autoUpdate[datum] = !_initialAutoUpdate;
     } else {
         _autoUpdate[datum] = !_autoUpdate[datum];
+    }
+}
+
+function setPendingState(datum) {
+    if(_pendingDataNames.indexOf(datum)===-1) {
+        _pendingDataNames.push(datum);
+    }
+}
+
+function unsetPendingState(datum) {
+    var idx = _pendingDataNames.indexOf(datum);
+
+    if(idx!==-1) {
+        _pendingDataNames.splice(idx, 1);
     }
 }
 
@@ -97,6 +112,10 @@ var AppStore = merge({}, EventEmitter.prototype, {
         } else {
             return _initialData;
         }
+    },
+
+    isPending: function(datum) {
+        return _pendingDataNames.indexOf(datum)!==-1;
     }
 });
 
@@ -106,6 +125,10 @@ AppStore.dispatcherToken = AppDispatcher.register(function(payload) {
     switch(action.actionType) {
         case AppConstants.API_CALL:
             setData(action.datum, action.data, action.conversionFunc);
+            unsetPendingState(action.datum);
+            break;
+        case AppConstants.API_CALL_PENDING:
+            setPendingState(action.datum);
             break;
         case AppConstants.SET_FROM_DATE:
             setFrom(action.datum, action.data);

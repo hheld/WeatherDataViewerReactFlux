@@ -1,15 +1,16 @@
 /* jshint node: true */
 
-var React              = require('react'),
-    AppStore           = require('../stores/AppStore'),
-    StatsStore         = require('../stores/StatsStore'),
-    ApiActions         = require('../actions/ApiActions.js'),
-    DataPlot           = require('./DataPlot'),
-    WindRose           = require('./WindRose'),
-    Button             = require('./Button'),
-    DateRangeSelectors = require('./DateRangeSelectors'),
-    AppActions         = require('../actions/AppActions'),
-    StatsTable = require('./StatsTable');
+var React                = require('react'),
+    AppStore             = require('../stores/AppStore'),
+    StatsStore           = require('../stores/StatsStore'),
+    ApiActions           = require('../actions/ApiActions.js'),
+    DataPlot             = require('./DataPlot'),
+    WindRose             = require('./WindRose'),
+    Button               = require('./Button'),
+    DateRangeSelectors   = require('./DateRangeSelectors'),
+    AppActions           = require('../actions/AppActions'),
+    StatsTable           = require('./StatsTable'),
+    ApiCallPendingMarker = require('./ApiCallPendingMarker');
 
 var panelContainerStyle = {
     border: '5px solid #849fc3',
@@ -66,7 +67,8 @@ var DataPanel = React.createClass({
             to: AppStore.getTo(this.props.datum),
             data: AppStore.getData(this.props.datum),
             doAutoUpdate: AppStore.getAutoUpdateSetting(this.props.datum),
-            stats: StatsStore.getStats(this.props.datum)
+            stats: StatsStore.getStats(this.props.datum),
+            apiCallPending: AppStore.isPending(this.props.datum)
         };
 
         if(appState.doAutoUpdate) {
@@ -136,6 +138,10 @@ var DataPanel = React.createClass({
         var actualPlot = this.props.specialWidget==='windRose' ? <WindRose data={this.state.data} title={this.props.displayText}></WindRose>
                                                                : <DataPlot {...this.props} data={this.state.data}></DataPlot>;
 
+        if(this.state.apiCallPending) {
+            actualPlot = <ApiCallPendingMarker></ApiCallPendingMarker>;
+        }
+
         return(
             <div style={panelContainerStyle}>
                 <div style={plotContainerStyle}>
@@ -151,7 +157,7 @@ var DataPanel = React.createClass({
                                         style={{width: '100%'}}>
                     </DateRangeSelectors>
                     <Button clickHandler={this._onUpdateButtonClicked} style={updateButtonStyle}>Update</Button>
-                {statWidget}
+                    {statWidget}
                 </div>
                 <div style={{clear: 'both'}}></div>
             </div>

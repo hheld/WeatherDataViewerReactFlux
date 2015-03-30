@@ -16,6 +16,11 @@ var ApiActions = {
         }, function(error) {
             console.log('There was an error getting weather data: ' + error);
         });
+
+        AppDispatcher.handleApiAction({
+            actionType: AppConstants.API_CALL_PENDING,
+            datum: datum
+        });
     }
 };
 
