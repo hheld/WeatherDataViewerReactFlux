@@ -7,8 +7,7 @@ var StyleResolverMixin = Radium.StyleResolverMixin,
     BrowserStateMixin = Radium.BrowserStateMixin;
 
 var buttonStyle = {
-    borderRadius: 3,
-    border: '1px solid #0b0e07',
+    border: 'none',
     display: 'inline-block',
     cursor: 'pointer',
     color: '#ffffff',
