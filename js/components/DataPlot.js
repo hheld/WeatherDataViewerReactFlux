@@ -4,7 +4,8 @@
 var React   = require('react');
 
 var style = {
-    width: '100%'
+    width: 'auto',
+    marginLeft: 30
 };
 
 var DataPlot = React.createClass({
