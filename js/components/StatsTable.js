@@ -10,7 +10,6 @@ var tableStyle = {
 
 var entryStyle = {
     fontSize: '0.7em',
-    border: '1px solid #327fd8',
     padding: '3px 7px 2px 7px',
     backgroundColor: 'rgba(121, 151, 217, 0.38)',
     color: '#275372'
@@ -23,9 +22,9 @@ var headerStyle = {
     paddingBottom: 4,
     paddingLeft: 7,
     paddingRight: 7,
-    backgroundColor: '#406fd9',
-    color: '#ffffff',
-    border: '1px solid #327fd8',
+    backgroundColor: '#6488d9',
+    color: '#eaefff',
+    borderBottom: '3px solid white'
 };
 
 var StatsTable = React.createClass({

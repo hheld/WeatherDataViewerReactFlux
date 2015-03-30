@@ -22,10 +22,12 @@ var dateInputStyle = {
     fontFamily: 'sans-serif',
     padding: 2,
     color: '#5c5e60',
-    border: 'none'
+    border: 'none',
+    backgroundColor: '#cee3ff'
 };
 
 var autoUpdateCheckboxStyle = {
+    verticalAlign: 'middle'
 };
 
 var autoUpdateLabelStyle = {
