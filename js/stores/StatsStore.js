@@ -19,7 +19,7 @@ function computeStats(datum, data) {
         len = data.length,
         min = Math.min.apply(null, data),
         max = Math.max.apply(null, data),
-        avg;
+        avg = 0.0;
 
     for(var i=0; i<len; ++i) {
         sum += data[i];
