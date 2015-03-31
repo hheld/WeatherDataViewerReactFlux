@@ -3,12 +3,9 @@
 
 var React      = require('react'),
     DataPanel  = require('./components/DataPanel'),
-    ApiActions = require('./actions/ApiActions.js'),
+    ApiActions = require('./actions/ApiActions'),
     AppStore   = require('./stores/AppStore'),
     unitConversionFunctions = require('./utils/UnitConversionFunctions');
-
-var from = AppStore.getFrom();
-var to = AppStore.getTo();
 
 var dataNames = [
     { datum: 'inTemp',      displayText: 'Temperature inside',            stat: 'Avg.', unit: '°C',   conversionFunc: unitConversionFunctions.F2C },
@@ -24,9 +21,6 @@ var dataNames = [
 ];
 
 var panels = dataNames.map(function(datum, i) {
-    // initialize with data
-    ApiActions.getData(datum.datum, from, to, datum.conversionFunc);
-
     return (
         <DataPanel datum={datum.datum}
                    statName={datum.stat}
@@ -38,7 +32,22 @@ var panels = dataNames.map(function(datum, i) {
     );
 });
 
-React.render(
-    <div>{panels}</div>,
-    document.getElementById('mount-point')
-);
+var App = React.createClass({
+    render: function() {
+        return (<div>{panels}</div>);
+    }
+});
+
+module.exports = App;
+
+if(typeof window !== 'undefined') {
+    React.render(<App></App>, document.getElementById('mount-point'));
+
+    // initialize with data
+    var from = AppStore.getFrom(),
+        to   = AppStore.getTo();
+
+    dataNames.map(function(datum) {
+        ApiActions.getData(datum.datum, from, to, datum.conversionFunc);
+    });
+}
