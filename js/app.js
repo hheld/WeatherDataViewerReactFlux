@@ -18,6 +18,7 @@ var dataNames = [
     { datum: 'rain',        displayText: 'Rain',                     stat: 'Sum',  unit: 'mm',   conversionFunc: unitConversionFunctions.in2mm },
     { datum: 'barometer',   displayText: 'Barometer',                stat: 'Avg.', unit: 'mbar', conversionFunc: unitConversionFunctions.inHg2mbar },
     { datum: 'windSpeed',   displayText: 'Wind speed',               stat: 'Avg.', unit: 'm/s',  conversionFunc: unitConversionFunctions.milesPerHour2mPerSec },
+    { datum: 'windGust',    displayText: 'Wind gust speed',          stat: 'Avg.', unit: 'm/s',  conversionFunc: unitConversionFunctions.milesPerHour2mPerSec },
     { datum: 'windDir',     displayText: 'Wind direction frequency', specialWidget: 'windRose' }
 ];
 
