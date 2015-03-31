@@ -22,6 +22,7 @@ var _initialFrom = new Date(),
     _pendingDataNames = [];
 
 _initialTo.setMilliseconds(0);
+_initialTo.setSeconds(0);
 _initialFrom.setTime(_initialTo.getTime() - 24*3600*1000);
 
 function setFrom(datum, from) {
