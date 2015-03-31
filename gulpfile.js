@@ -2,6 +2,7 @@
 
 var gulp        = require('gulp'),
     uglify      = require('gulp-uglify'),
+    htmlReplace = require('gulp-html-replace'),
     source      = require('vinyl-source-stream'),
     browserify  = require('browserify'),
     watchify    = require('watchify'),
@@ -9,18 +10,20 @@ var gulp        = require('gulp'),
     streamify   = require('gulp-streamify');
 
 var path = {
+    HTML: 'index.ejs',
     CSS: ['./css/app.css'],
     MINIFIED_OUT: 'build.min.js',
     OUT: 'build.js',
     DEST: 'dist',
-    DEST_BUILD: 'dist/build',
     DEST_SRC: 'dist/src',
+    DEST_BUILD: 'dist/build',
     ENTRY_POINT: './js/app.js'
 };
 
-gulp.task('copy', ['copyCss']);
+gulp.task('copy', ['copyHtml', 'copyCss']);
 
 gulp.task('watch', function() {
+    gulp.watch(path.HTML, ['copyHtml']);
     gulp.watch(path.CSS, ['copyCss']);
 
     var watcher = watchify(browserify({
@@ -52,8 +55,21 @@ gulp.task('build', function() {
     .pipe(gulp.dest(path.DEST_BUILD));
 });
 
-gulp.task('production', ['build', 'copyCss']);
+gulp.task('replaceHtml', function() {
+    gulp.src(path.HTML)
+        .pipe(htmlReplace({
+            'js': '/wdrf/build/' + path.MINIFIED_OUT
+    }))
+    .pipe(gulp.dest('./views'));
+});
+
+gulp.task('production', ['replaceHtml', 'build', 'copyCss']);
 gulp.task('default', ['watch', 'copyCss']);
+
+gulp.task('copyHtml', function() {
+    gulp.src(path.HTML)
+        .pipe(gulp.dest('./views'));
+});
 
 gulp.task('copyCss', function() {
     gulp.src(path.CSS)
