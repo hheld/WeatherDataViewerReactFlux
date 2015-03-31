@@ -14,8 +14,8 @@ var React                = require('react'),
 
 var panelContainerStyle = {
     border: '5px solid #849fc3',
-    marginLeft: '20%',
-    marginRight: '20%',
+    marginLeft: 10,
+    marginRight: 10,
     marginTop: 15,
     marginBottom: 15,
     padding: 10,
