@@ -124,7 +124,10 @@ AppStore.dispatcherToken = AppDispatcher.register(function(payload) {
 
     switch(action.actionType) {
         case AppConstants.API_CALL:
-            setData(action.datum, action.data, action.conversionFunc);
+            if(action.data.dataPoints.length!==0) {
+                setData(action.datum, action.data, action.conversionFunc);
+            }
+
             unsetPendingState(action.datum);
             break;
         case AppConstants.API_CALL_PENDING:
