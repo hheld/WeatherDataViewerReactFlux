@@ -14,7 +14,7 @@ var ApiActions = {
                 conversionFunc: conversionFunc
             });
         }, function(error) {
-            console.log('There was an error getting weather data: ' + error);
+            console.log('There was an error getting weather data for "' + datum + '": ' + error);
         });
 
         AppDispatcher.handleApiAction({
