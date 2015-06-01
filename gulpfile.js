@@ -51,7 +51,7 @@ gulp.task('build', function() {
     })
     .bundle()
     .pipe(source(path.MINIFIED_OUT))
-    .pipe(streamify(uglify(path.MINIFIED_OUT)))
+    .pipe(streamify(uglify()))
     .pipe(gulp.dest(path.DEST_BUILD));
 });
 
